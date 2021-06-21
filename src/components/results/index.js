@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import Page from './page';
 
 class Results extends Component {
     render() {
-        const {suggestions} = this.props;
+        const {results} = this.props;
         return (
-            <Page suggestions={suggestions} />
+            <Page results={results} goTo={(path) => {this.props.history.push(path)}} />
         );
     }
 }
 
+// Metodo de redux para obtener el dato almacenado en el store y pasarlo al componente que hara uso de este
 const mapStateToProps = (state) => {
     return {
-        suggestions: state.suggestions,
+        results: state.results,
     };
 }
 
-export default connect(mapStateToProps)(Results);
+export default withRouter(connect(mapStateToProps)(Results));
